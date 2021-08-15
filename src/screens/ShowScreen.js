@@ -19,10 +19,8 @@ const ShowScreen = ({ route, navigation }) => {
 
   const blogPost = state.find((blogPost) => blogPost.id === id);
 
-  console.log(id);
   return (
     <View>
-      <Text>Show Screen</Text>
       <Text>{blogPost.title}</Text>
       <Text>{blogPost.content}</Text>
     </View>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,8 +11,11 @@ import { Context as BlogContext } from "../context/BlogContext";
 import { Feather } from "@expo/vector-icons";
 
 const IndexScreen = ({ navigation }) => {
-  console.log("navigation", navigation);
-  const { state, addBlogPost, deleteBlogPost } = useContext(BlogContext);
+  const { state, deleteBlogPost, getBlogPosts } = useContext(BlogContext);
+
+  useEffect(() => {
+    getBlogPosts();
+  }, []);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,7 +31,7 @@ const IndexScreen = ({ navigation }) => {
     <View>
       <FlatList
         data={state}
-        keyExtractor={(blogPost) => blogPost.id}
+        keyExtractor={(blogPost) => blogPost.id.toString()}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
