@@ -13,9 +13,15 @@ import { Feather } from "@expo/vector-icons";
 const IndexScreen = ({ navigation }) => {
   const { state, deleteBlogPost, getBlogPosts } = useContext(BlogContext);
 
-  useEffect(() => {
-    getBlogPosts();
-  }, []);
+ useEffect(() => {
+    const listener = navigation.addListener("focus", () => {
+      getBlogPosts();
+    });
+    return listener;
+  }, [navigation]);
+  // any time this component gains focus then this callback function will be invoked.
+
+  //below cleans up the listener prevents memory leaks. keeping listeners listening takes memory from the browser
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
